@@ -34,7 +34,7 @@ app.use(
 app.use('/api/auth', authLimiter, authRoutes)
 
 // Greeting route
-app.get('/health', (_req, res) => {
+app.get('/', (_req, res) => {
   res.json({ status: 'Qué bueno verte por acá!' })
 })
 
