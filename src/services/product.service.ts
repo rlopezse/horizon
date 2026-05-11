@@ -1,7 +1,8 @@
 import redis from '../config/redis'
 import { productRepository } from '../repositories/product.repository'
 
-const CACHE_TTL = 60 * 60 // 1 hora en segundos
+const CACHE_TTL = 60 * 60
+
 const CACHE_KEYS = {
   allProducts: 'products:all',
   product: (id: number) => `products:${id}`,
@@ -13,11 +14,7 @@ export const productService = {
     if (cached) return JSON.parse(cached)
 
     const products = await productRepository.findAll()
-    await redis.setex(
-      CACHE_KEYS.allProducts,
-      CACHE_TTL,
-      JSON.stringify(products),
-    )
+    await redis.setex(CACHE_KEYS.allProducts, CACHE_TTL, JSON.stringify(products))
     return products
   },
 
@@ -28,28 +25,22 @@ export const productService = {
     const product = await productRepository.findById(id)
     if (!product) return null
 
-    await redis.setex(
-      CACHE_KEYS.product(id),
-      CACHE_TTL,
-      JSON.stringify(product),
-    )
+    await redis.setex(CACHE_KEYS.product(id), CACHE_TTL, JSON.stringify(product))
     return product
   },
 
   create: async (data: {
     title: string
     description?: string
-    style?: string
+    category: string
     sku: string
     price: number
     currencyId?: string
     currencyFormat?: string
-    installments?: number
     isFreeShipping?: boolean
-    availableSizes?: string
   }) => {
     const product = await productRepository.create(data)
-    await redis.del(CACHE_KEYS.allProducts) // invalidar caché
+    await redis.del(CACHE_KEYS.allProducts)
     return product
   },
 

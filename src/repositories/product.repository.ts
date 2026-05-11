@@ -16,14 +16,12 @@ export const productRepository = {
   create: async (data: {
     title: string
     description?: string
-    style?: string
+    category: string
     sku: string
     price: number
     currencyId?: string
     currencyFormat?: string
-    installments?: number
     isFreeShipping?: boolean
-    availableSizes?: string
   }) => {
     return prisma.product.create({ data })
   },
@@ -33,13 +31,11 @@ export const productRepository = {
     data: Partial<{
       title: string
       description: string
-      style: string
+      category: string
       price: number
       currencyId: string
       currencyFormat: string
-      installments: number
       isFreeShipping: boolean
-      availableSizes: string
     }>,
   ) => {
     return prisma.product.update({

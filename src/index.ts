@@ -44,7 +44,7 @@ app.get('/health', (_req, res) => {
 })
 
 // Protected routes
-app.use('/api/products', authenticate, productRoutes)
+app.use('/api/products', productRoutes)
 app.use('/api/users', authenticate, userRoutes)
 
 app.listen(env.port, () => {
