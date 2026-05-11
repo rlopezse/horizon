@@ -17,17 +17,15 @@ model User {
 }
 
 model Product {
-  id Int @id @default(autoincrement())
-  title String
-  description String?
-  style String?
-  sku String @unique
-  price Float
-  currencyId String @default("CLP")
-  currencyFormat String @default("$")
-  installments Int @default(1)
+  id             Int      @id @default(autoincrement())
+  sku            String   @unique
+  title          String
+  description    String?
+  category       String
+  price          Float
+  currencyFormat String   @default("$")
+  currencyId     String   @default("CLP")
   isFreeShipping Boolean  @default(false)
-  availableSizes String @default("")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
