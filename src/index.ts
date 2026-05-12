@@ -10,8 +10,13 @@ import userRoutes from './routes/user.routes'
 import { authenticate } from './middlewares/auth.middleware'
 import compression from 'compression'
 import { globalLimiter, authLimiter } from './middlewares/rate-limit.middleware'
+import cors from 'cors'
 
 const app = express()
+
+app.use(cors({
+  origin: 'http://localhost:4200'
+}));
 
 app.use(globalLimiter)
 
