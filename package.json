@@ -15,6 +15,9 @@
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "keywords": [],
   "author": "Ronald lopez <rza.lopez.s@gmail.com>",
   "license": "ISC",
